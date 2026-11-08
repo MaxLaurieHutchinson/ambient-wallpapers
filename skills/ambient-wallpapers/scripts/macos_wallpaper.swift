@@ -302,7 +302,7 @@ func restoredOptions(_ raw: Any?) -> [NSWorkspace.DesktopImageOptionKey: Any] {
 }
 
 do {
-    try run()
+    try MainActor.assumeIsolated { try run() }
 } catch {
     fputs("ambient-wallpapers macOS: \(error)\n", stderr)
     exit(2)
