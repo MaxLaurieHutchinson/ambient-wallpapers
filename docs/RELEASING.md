@@ -5,7 +5,7 @@ This is a **maintainer checklist**. Opening or merging a PR does not itself auth
 ## Hard gates
 
 - [x] **Select licence structure.** The code and documentation use [MIT](../LICENSE); the six listed example images use [CC BY 4.0](../ASSETS-LICENSE.md) for rights the maintainer can license. Both notices are bundled with release archives.
-- [ ] **Verify artwork provenance and rights.** Confirm the generation provider, its terms, any reference-image permissions, and rights to distribute the six bundled sample images under CC BY 4.0. Record evidence before release; a licence declaration does not prove ownership or copyright subsistence.
+- [x] **Record example-artwork origin.** The maintainer confirms that the three research-station artworks (reproduced at six paths) were generated with Codex for Ambient Wallpapers. This origin question is resolved; no separate provenance audit is a release prerequisite. If independently sourced references or third-party material are added later, review their rights before redistribution. The CC BY 4.0 notice grants only rights legally held.
 - [ ] **Audit Git history and public artefacts.** Check older commits, Action logs, generated ZIPs, embedded metadata and demos. Rotate exposed credentials; deleting their latest occurrence is insufficient.
 - [ ] **Run CI.** Python matrix, Windows contract checks, deterministic ZIP generation and the Gitleaks history scan must all pass.
 - [ ] **Test actual Windows and macOS application.** With owner authorisation, inspect, plan, apply, verify and restore on real multi-display machines. Confirm saved backups and the Windows Spotlight/macOS dynamic wallpaper limitations. A macOS compile check is not live application evidence.
@@ -36,6 +36,6 @@ python tools/verify_release.py
 
 The builder creates deterministic, ignored `dist/` archives. Verification compares archives byte-for-byte with the source and against the manifest's hashes. It does not test real wallpaper mutation.
 
-**Once the image-provenance and manual security gates are closed**, review both committed licence notices, merge the PR, tag the reviewed latest `main` commit `v0.1.0`, and push the tag. The workflow reruns tests, refuses non-main tags or missing licensing, rebuilds and checks ZIPs, and publishes a GitHub Release.
+**Once the remaining manual release checks are closed**, review both committed licence notices, merge the PR, tag the reviewed latest `main` commit `v0.1.0`, and push the tag. The workflow reruns tests, refuses non-main tags or missing licensing, rebuilds and checks ZIPs, and publishes a GitHub Release.
 
 After publication, download the release as a signed-out visitor, verify checksums, follow the site-to-GitHub install path, install in a fresh Codex session and confirm that the public claims reflect the supported platforms.

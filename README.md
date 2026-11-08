@@ -6,7 +6,7 @@
 
 ![Research-station wallpaper from the Ambient Wallpapers showcase](showcase/images/station-exterior.png)
 
-> **Status:** public v0.1.0 release candidate. Code and example-artwork licences are selected; a tagged release, artwork-provenance review and real multi-display application verification are still pending.
+> **Status:** public v0.1.0 release candidate. The code and example-artwork licences are selected, and the maintainer has confirmed that the bundled artwork was generated with Codex for this project. The first tagged release and real multi-display application verification are still pending.
 
 ## Features
 
@@ -109,4 +109,4 @@ A tagged release will provide a portable skill ZIP, a showcase ZIP and SHA-256 m
 - **Bundled example and showcase wallpapers:** [CC BY 4.0](ASSETS-LICENSE.md), limited to the six listed example-image paths and only to rights that can lawfully be granted.
 - **User-generated or user-supplied wallpaper packs:** not covered by the repository's artwork licence; their rights depend on their own provenance and terms.
 
-Both release ZIPs include the relevant notices. Before publication, the example images' generation source and redistribution rights still need a provenance review.
+Both release ZIPs include the relevant notices. The maintainer has confirmed that the three example compositions originated from Codex generation for this project. Third-party images or references, if introduced in the future, still require a separate rights check.
