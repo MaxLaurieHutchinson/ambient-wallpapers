@@ -2,7 +2,9 @@
 
 A reusable Codex skill for a desktop that fits its owner: learn from relevant history, confirm a visual direction, generate a coordinated collection, and refine it from what the user actually likes.
 
-[Open the showcase](showcase/index.html) to see the research-station collection across a laptop and two displays.
+[View the live showcase](https://maxlauriehutchinson.github.io/ambient-wallpapers/) to see the research-station collection across a laptop and two displays.
+
+![Research-station wallpaper from the Ambient Wallpapers showcase](showcase/images/station-exterior.png)
 
 ## Use it
 
@@ -24,7 +26,9 @@ Manual choice takes priority. Schedules and signal sources are explicit opt-ins.
 - `dist/ambient-wallpapers-showcase-0.1.0.zip`: standalone gallery with local images.
 - `dist/ambient-wallpapers-manifest.json`: file and archive hashes.
 
-The repository and archives exclude private preference profiles, display identifiers, local account paths and execution receipts. The showcase can be opened locally; it has not been deployed to a website.
+The repository and archives exclude private preference profiles, display identifiers, local account paths and execution receipts.
+
+GitHub Pages publishes the `showcase/` folder. Changes to that folder on `main` update the live page automatically. You can also open `showcase/index.html` locally.
 
 ## Validation
 
