@@ -18,7 +18,7 @@ PRIVATE_PATTERNS = {
     "display hardware identifier": re.compile(r"\bDISPLAY#[A-Z0-9]+#", re.I),
     "credential": re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,})\b"),
 }
-TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py", ".ps1", ".html"}
+TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py", ".ps1", ".html", ".swift"}
 
 
 def clean_files(folder: Path) -> list[Path]:

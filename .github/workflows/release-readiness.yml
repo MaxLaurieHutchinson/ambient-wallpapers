@@ -40,6 +40,14 @@ jobs:
           ./skills/ambient-wallpapers/tests/test_windows_roles.ps1
           ./skills/ambient-wallpapers/tests/test_signal_task_plan.ps1
 
+  macos-adapter:
+    name: macOS Swift adapter compiles
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Typecheck AppKit and CoreGraphics adapter
+        run: swiftc -typecheck skills/ambient-wallpapers/scripts/macos_wallpaper.swift
+
   release-assets:
     name: Verify reproducible release assets
     runs-on: ubuntu-latest

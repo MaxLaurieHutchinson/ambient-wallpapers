@@ -7,7 +7,7 @@ This is a **maintainer checklist**. Opening or merging a PR does not itself auth
 - [ ] **Approve licensing.** Verify ownership and redistribution rights for code, generated artwork and third-party images. Publish an explicit root `LICENSE` for code and separate terms for artwork if needed. Public visibility is not a licence.
 - [ ] **Audit Git history and public artefacts.** Check older commits, Action logs, generated ZIPs, embedded metadata and demos. Rotate exposed credentials; deleting their latest occurrence is insufficient.
 - [ ] **Run CI.** Python matrix, Windows contract checks, deterministic ZIP generation and the Gitleaks history scan must all pass.
-- [ ] **Test real Windows application.** With owner authorisation, inspect, plan, apply, verify and restore on a real multi-display machine. Confirm backup path and Windows Spotlight limitation.
+- [ ] **Test actual Windows and macOS application.** With owner authorisation, inspect, plan, apply, verify and restore on real multi-display machines. Confirm saved backups and the Windows Spotlight/macOS dynamic wallpaper limitations. A macOS compile check is not live application evidence.
 - [ ] **Review claims.** Use actual PNG pixel dimensions; describe upscaled files honestly. Distinguish running schedules from merely configured schedules.
 - [ ] **Check first-time user experience.** Verify install in a clean Codex session, site navigation and gallery on mobile, metadata and sharing card.
 - [ ] **Configure repository settings.** Enable default branch protection/rulesets, security alerts, CodeQL default setup, and private vulnerability reporting where available.
@@ -16,7 +16,7 @@ This is a **maintainer checklist**. Opening or merging a PR does not itself auth
 
 The connected file-editing API cannot change these settings, so the owner must do so in the GitHub UI:
 
-- **Topics:** `codex`, `agent-skills`, `wallpapers`, `desktop-personalization`, `windows`, `python`, `image-generation`.
+- **Topics:** `codex`, `agent-skills`, `wallpapers`, `desktop-personalization`, `windows`, `macos`, `python`, `image-generation`.
 - **Homepage:** `https://maxlauriehutchinson.github.io/ambient-wallpapers/`.
 - **Social preview:** upload a suitably licensed wide screenshot.
 - **Ruleset/branch protection:** protect `main` and require the actual successful CI check names before merging; disable force pushes.

@@ -12,15 +12,15 @@
 
 - **Preference calibration:** learn from feedback; distinguish confirmed taste from suggestions and rejected directions.
 - **Coordinated imagery:** compose a consistent collection for a laptop and multiple displays, with honest source and output dimensions.
-- **Windows backup/apply/restore:** inspect, plan, apply and verify wallpapers, preserving a rollback receipt.
+- **Windows and macOS static wallpapers:** inspect, plan, apply and verify with a rollback receipt. macOS dynamic wallpapers and multi-Space state require extra care.
 - **Optional local signals:** choose among *approved cached images* using time, connected displays, opted-in city weather or data-only agent suggestions.
-- **Portable output:** generate/export files on macOS and Linux; direct wallpaper application is currently supported on Windows only.
+- **Portable output:** generate/export on supported machines; native static wallpaper application is available on Windows and macOS, while Linux remains export-only.
 
 [See the three-screen research-station collection](https://maxlauriehutchinson.github.io/ambient-wallpapers/). The website is a static showcase, not a remotely controlled desktop.
 
 ## Install in Codex
 
-**Requirements:** Codex with an image-generation tool; Python 3.10+ for the bundled helpers; [Pillow](https://pypi.org/project/Pillow/) for preparing images. Windows PowerShell is required only to inspect, apply or restore desktop wallpaper.
+**Requirements:** Codex with an image-generation tool; Python 3.10+ for the bundled helpers; [Pillow](https://pypi.org/project/Pillow/) for preparing images. Windows PowerShell is required for Windows desktop changes; macOS application requires Swift from Xcode Command Line Tools.
 
 ### Codex skill installer
 
@@ -67,7 +67,7 @@ $ambient-wallpapers make my desktop feel more like me
 1. **Calibrate:** propose a visual direction based on confirmed preferences and user feedback, not assumptions about interests.
 2. **Generate:** produce a coherent set with a separate composition for each display.
 3. **Prepare:** inspect true dimensions; opt in before upscaling; save original sources, outputs and a dimension manifest.
-4. **Plan and apply:** on Windows, inspect displays, back up existing settings, plan assignments, apply, verify, and keep rollback data.
+4. **Plan and apply:** on Windows or macOS, inspect displays, back up static-image settings, plan assignments, apply, verify, and keep rollback data. Read the [Mac adapter guide](skills/ambient-wallpapers/references/macos.md) for known macOS limitations.
 5. **Adapt (optional):** select from approved local packs using permitted time, display, city weather and agent categories. Manual choice takes precedence.
 
 Agent inputs are **data only** and do not grant filesystem permissions or execute commands. Weather uses a city supplied by the user, not GPS. Scheduled generation requires the image tool and the local desktop runtime to be available when it runs.
@@ -90,14 +90,14 @@ pwsh -NoProfile -File skills/ambient-wallpapers/tests/test_windows_roles.ps1
 pwsh -NoProfile -File skills/ambient-wallpapers/tests/test_signal_task_plan.ps1
 ```
 
-CI checks Python tests, Windows contracts, reproducible packages and full-history credential scanning. Automated tests don't replace a manual visual and rollback check on a real Windows machine.
+CI checks Python tests, Windows contracts, macOS Swift typechecking, reproducible packages and full-history credential scanning. Automated tests don't replace a manual visual and rollback check on a real Windows machine.
 
 ## Distribution and boundaries
 
 A tagged release will provide a portable skill ZIP, a showcase ZIP and SHA-256 manifest under [GitHub Releases](https://github.com/MaxLaurieHutchinson/ambient-wallpapers/releases). Generated archives are no longer committed to the source branch.
 
 - **Upscaling doesn't create native image detail.** Output resolution is not generation resolution.
-- **Desktop application is Windows-only** at present. Restoring a static image does not prove that Windows Spotlight rotation has resumed.
+- **Desktop application is Windows and macOS for static wallpapers.** Windows Spotlight rotation and macOS dynamic wallpapers or Space-specific settings cannot be guaranteed to restore automatically. macOS recurring task registration is not yet implemented.
 - **Weather, agent suggestions and schedules are opt-in.** A cloud task without desktop access cannot change local wallpaper.
 - **No private profiles or display identifiers** should appear in the repository or shareable bundles.
 
