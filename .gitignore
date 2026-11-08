@@ -1,0 +1,20 @@
+# Track only the reusable skill, showcase and distributable artifacts.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/skills/
+!/showcase/
+!/tools/
+!/dist/
+
+/tools/*
+!/tools/package_ambient_skill.py
+
+/dist/*
+!/dist/ambient-wallpapers-0.1.0.zip
+!/dist/ambient-wallpapers-showcase-0.1.0.zip
+!/dist/ambient-wallpapers-manifest.json
+
+**/__pycache__/
+**/*.py[cod]

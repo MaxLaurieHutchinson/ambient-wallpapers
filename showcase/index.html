@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111210">
+  <meta name="description" content="Ambient Wallpapers turns your preferences into a coordinated desktop wallpaper set. A local demo of the skill.">
+  <title>Ambient Wallpapers: make your desktop yours</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111210'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23e3a966'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23e3a966'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f3f0e8;
+      --muted: #aaaba4;
+      --soft: #777b73;
+      --line: rgba(231, 228, 216, .12);
+      --paper: #111210;
+      --panel: #171815;
+      --amber: #e3a966;
+      --copper: #ad7144;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: "Segoe UI Variable", "Segoe UI", Aptos, Inter, system-ui, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      scroll-behavior: smooth;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--paper); }
+    a { color: inherit; }
+    .wrap { width: min(1440px, calc(100% - 64px)); margin-inline: auto; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; min-height: 78px; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 650; letter-spacing: -.025em; }
+    .brand-mark { position: relative; display: block; width: 25px; height: 25px; border: 1px solid rgba(227,169,102,.65); border-radius: 50%; }
+    .brand-mark::before, .brand-mark::after { position: absolute; content: ""; background: var(--amber); border-radius: 50%; }
+    .brand-mark::before { width: 5px; height: 5px; top: 5px; left: 5px; }
+    .brand-mark::after { width: 3px; height: 3px; right: 4px; bottom: 4px; opacity: .62; }
+    .nav { display: flex; align-items: center; gap: 30px; color: var(--muted); font-size: 12px; }
+    .nav a { text-decoration: none; transition: color .16s ease; }
+    .nav a:hover, .nav a:focus-visible { color: var(--ink); }
+    .local-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 99px; font: 10px var(--mono); letter-spacing: .035em; color: #bbbdb4; }
+    .local-pill::before { content: ""; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; box-shadow: 0 0 12px rgba(227,169,102,.56); }
+
+    .hero { min-height: 680px; display: grid; grid-template-columns: .94fr 1.06fr; align-items: center; gap: 4.5%; padding-block: 82px 86px; }
+    .eyebrow { color: var(--amber); font: 10px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 680px; margin: 24px 0 22px; font-family: var(--serif); font-size: clamp(52px, 6.1vw, 84px); font-weight: 400; line-height: .99; letter-spacing: -.058em; }
+    h1 em { color: var(--amber); font-weight: 400; }
+    .intro { max-width: 445px; color: #b6b7b0; font-size: 16px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 32px; }
+    .button { display: inline-flex; align-items: center; gap: 12px; min-height: 47px; padding: 0 16px; border: 1px solid rgba(227,169,102,.62); color: #f2e9de; background: rgba(227,169,102,.06); text-decoration: none; font-size: 12px; font-weight: 580; transition: background .18s ease, border-color .18s ease; }
+    .button:hover { background: rgba(227,169,102,.13); border-color: var(--amber); }
+    .button .arrow { color: var(--amber); font-size: 17px; }
+    .quiet-link { color: var(--muted); font-size: 12px; text-decoration: none; }
+    .quiet-link:hover { color: var(--ink); }
+    .hero-note { margin-top: 31px; color: var(--soft); font: 10px var(--mono); letter-spacing: .015em; }
+
+    .hero-art { min-width: 0; position: relative; min-height: 470px; display: grid; align-items: center; }
+    .hero-art::before { position: absolute; content: ""; width: 85%; height: 78%; top: 11%; right: 4%; background: radial-gradient(ellipse at 62% 53%, rgba(170,103,53,.2), rgba(99,65,43,.075) 38%, transparent 73%); filter: blur(20px); }
+    .laptop-frame { position: relative; z-index: 2; width: 77%; margin: 7% auto 2% 2%; }
+    .display-screen { position: relative; overflow: hidden; border: 1px solid rgba(239,229,211,.36); background: #090a09; box-shadow: 0 28px 84px rgba(0,0,0,.64), 0 0 0 5px rgba(236,227,207,.028); }
+    .display-screen img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+    .screen-glass { pointer-events: none; position: absolute; inset: 0; background: linear-gradient(123deg, rgba(242,232,211,.12), transparent 17%, transparent 70%, rgba(5,6,5,.16)); }
+    .laptop-base { width: 105%; height: 9px; margin-left: -2.5%; background: linear-gradient(90deg, #363732, #828078 18%, #bbb4a7 48%, #716e67 81%, #292a27); border-radius: 0 0 55% 55%; box-shadow: 0 6px 12px rgba(0,0,0,.58); }
+    .laptop-base::after { content: ""; display: block; width: 13%; height: 3px; margin: auto; background: rgba(21,22,20,.42); border-radius: 0 0 6px 6px; }
+    .monitor-inset { position: absolute; z-index: 3; width: 45%; top: 7%; right: 0; border: 1px solid rgba(239,229,211,.24); background: #090a09; padding: 6px 6px 14px; box-shadow: 0 22px 56px rgba(0,0,0,.6); }
+    .monitor-inset img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .monitor-inset span { display: block; margin-top: 8px; color: #a4a096; text-align: right; font: 9px var(--mono); letter-spacing: .03em; }
+    .hero-caption { position: absolute; right: 0; bottom: 1%; color: var(--soft); font: 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+
+    .section-line { border-top: 1px solid var(--line); }
+    .gallery-section { padding-block: 90px 96px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 34px; }
+    .section-head h2 { margin: 13px 0 0; font-family: var(--serif); font-size: clamp(36px, 4vw, 54px); font-weight: 400; letter-spacing: -.045em; }
+    .section-head p { max-width: 365px; margin: 0 0 2px; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .wallpapers { display: grid; grid-template-columns: .95fr 1.2fr 1.2fr; gap: 15px; align-items: start; }
+    .wallpaper-card { min-width: 0; padding: 11px; border: 1px solid var(--line); background: linear-gradient(157deg, rgba(255,255,255,.026), rgba(255,255,255,.008)); }
+    .wallpaper-card:first-child { margin-top: 31px; }
+    .wallpaper-card:last-child { margin-top: 18px; }
+    .wallpaper-card img { display: block; width: 100%; height: auto; object-fit: cover; background: #1c1d19; }
+    .wallpaper-card:first-child img { aspect-ratio: 3 / 2; }
+    .wallpaper-card:not(:first-child) img { aspect-ratio: 16 / 9; }
+    .card-caption { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 1px 2px; }
+    .card-caption h3 { margin: 0; font-size: 12px; font-weight: 570; letter-spacing: -.01em; }
+    .card-caption span { color: #85867e; font: 9px var(--mono); white-space: nowrap; }
+
+    .process-section { padding-block: 77px 87px; background: #161714; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .process-head { display: grid; grid-template-columns: .7fr 1.3fr; gap: 9%; align-items: end; margin-bottom: 46px; }
+    .process-head h2 { max-width: 320px; margin: 0; font-family: var(--serif); font-size: clamp(38px, 4vw, 56px); font-weight: 400; line-height: 1.05; letter-spacing: -.045em; }
+    .process-head p { max-width: 545px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+    .step { min-width: 0; padding: 23px 24px 8px 0; }
+    .step + .step { padding-left: 21px; border-left: 1px solid var(--line); }
+    .step-index { color: var(--amber); font: 10px var(--mono); }
+    .step h3 { margin: 32px 0 9px; font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: -.025em; }
+    .step p { max-width: 250px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+
+    .tech-section { padding-block: 81px 89px; }
+    .tech-head { display: flex; justify-content: space-between; gap: 32px; align-items: end; margin-bottom: 29px; }
+    .tech-head h2 { margin: 13px 0 0; font-family: var(--serif); font-size: clamp(34px, 3.4vw, 46px); font-weight: 400; letter-spacing: -.04em; }
+    .tech-head p { max-width: 370px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .capability { min-height: 152px; padding: 20px; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(255,255,255,.018), transparent 75%); }
+    .status { display: inline-flex; align-items: center; gap: 7px; color: #b5c4ab; font: 9px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+    .status::before { content: ""; width: 5px; height: 5px; background: #99ad85; border-radius: 50%; }
+    .status.future { color: #d1a77a; }
+    .status.future::before { background: #d1a77a; }
+    .capability h3 { margin: 18px 0 7px; font-size: 13px; font-weight: 570; }
+    .capability p { max-width: 380px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
+    .caveat { display: flex; align-items: start; gap: 11px; margin-top: 18px; color: var(--soft); font-size: 10px; line-height: 1.7; }
+    .caveat b { color: #b5b4ab; font-weight: 570; }
+
+    .try-section { padding-block: 59px 64px; border-top: 1px solid var(--line); background: linear-gradient(110deg, rgba(119,80,47,.1), transparent 56%); }
+    .try-row { display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+    .try-copy .eyebrow { margin-bottom: 12px; }
+    .try-copy p { margin: 0; color: #c1c1b9; font-family: var(--serif); font-size: clamp(21px, 2.5vw, 30px); letter-spacing: -.025em; }
+    .skill-call { flex: none; padding: 13px 16px; border: 1px solid rgba(227,169,102,.5); color: #f1e5d5; background: rgba(19,19,17,.5); font: 11px var(--mono); }
+    .skill-call span { color: var(--amber); }
+    footer { display: flex; justify-content: space-between; gap: 18px; padding-block: 21px 24px; color: #696b64; font: 9px var(--mono); letter-spacing: .02em; }
+
+    @media (min-width: 1540px) { .hero { min-height: 750px; } .hero-art { min-height: 530px; } }
+    @media (max-width: 930px) {
+      .wrap { width: min(100% - 44px, 760px); }
+      .hero { grid-template-columns: 1fr; min-height: auto; gap: 39px; padding-block: 70px 58px; }
+      .hero-copy { max-width: 630px; }
+      .hero-art { width: min(100%, 680px); margin-inline: auto; min-height: 440px; }
+      .laptop-frame { width: 76%; margin-left: 0; }
+      .monitor-inset { width: 45%; }
+      .wallpapers { grid-template-columns: 1fr 1fr; gap: 13px; }
+      .wallpaper-card:first-child { margin-top: 0; }
+      .wallpaper-card:last-child { margin-top: 0; grid-column: 2; }
+      .process-head { grid-template-columns: 1fr 1.15fr; gap: 30px; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .step:nth-child(3) { border-left: none; padding-left: 0; }
+      .step:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 17px; padding-top: 21px; }
+      .capabilities { grid-template-columns: 1fr 1fr; }
+      .capability:last-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: calc(100% - 36px); }
+      .topbar { min-height: 68px; }
+      .nav { gap: 16px; }
+      .nav a:first-child { display: none; }
+      .local-pill { font-size: 9px; padding: 7px 9px; }
+      .hero { padding-top: 58px; gap: 27px; }
+      h1 { margin-top: 19px; font-size: clamp(48px, 14vw, 70px); }
+      .intro { font-size: 14px; line-height: 1.75; }
+      .hero-actions { gap: 18px; }
+      .hero-art { min-height: 320px; }
+      .laptop-frame { width: 83%; margin-top: 10%; }
+      .monitor-inset { width: 48%; top: 2%; padding: 4px 4px 10px; }
+      .monitor-inset span { margin-top: 5px; font-size: 8px; }
+      .hero-caption { font-size: 8px; }
+      .gallery-section, .tech-section { padding-block: 62px; }
+      .section-head, .tech-head { align-items: start; flex-direction: column; gap: 11px; margin-bottom: 24px; }
+      .section-head p, .tech-head p { font-size: 12px; }
+      .wallpapers { grid-template-columns: 1fr; gap: 13px; }
+      .wallpaper-card:first-child, .wallpaper-card:last-child { grid-column: auto; }
+      .wallpaper-card { padding: 9px; }
+      .wallpaper-card:first-child img { aspect-ratio: 3 / 2; }
+      .process-section { padding-block: 62px; }
+      .process-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 33px; }
+      .process-head p { font-size: 12px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .step { padding-right: 12px; }
+      .step + .step { padding-left: 13px; }
+      .step:nth-child(3) { padding-left: 0; }
+      .step h3 { margin-top: 24px; font-size: 21px; }
+      .step p { font-size: 11px; }
+      .capabilities { grid-template-columns: 1fr; }
+      .capability:last-child { grid-column: auto; }
+      .try-row { align-items: start; flex-direction: column; }
+      .try-section { padding-block: 42px; }
+      footer { font-size: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#top" aria-label="Ambient Wallpapers home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Ambient Wallpapers</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#collection">The collection</a>
+      <a href="#approach">How it works</a>
+      <span class="local-pill">A skill for Codex</span>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">A more personal desktop</div>
+        <h1 id="hero-title">Made to feel like <em>yours.</em></h1>
+        <p class="intro">A wallpaper should feel at home on your screen. Ambient Wallpapers starts with a hunch about your taste, then lets you steer.</p>
+        <div class="hero-actions">
+          <a class="button" href="#collection">See the collection <span class="arrow" aria-hidden="true">↘</span></a>
+          <a class="quiet-link" href="#approach">How it found its way here</a>
+        </div>
+        <div class="hero-note">ONE IDEA &nbsp;·&nbsp; THREE SCREENS &nbsp;·&nbsp; YOUR CALL</div>
+      </div>
+      <div class="hero-art" aria-label="Preview of coordinated research-station wallpapers">
+        <div class="laptop-frame">
+          <div class="display-screen">
+            <img src="images/station-laptop.png" alt="Tall sculptural research-station tower in graphite concrete, its narrow entrance lit amber against a quiet dusk sky">
+            <span class="screen-glass" aria-hidden="true"></span>
+          </div>
+          <div class="laptop-base" aria-hidden="true"></div>
+        </div>
+        <div class="monitor-inset">
+          <img src="images/station-exterior.png" alt="A wide remote station with a tall tower and warm band of light under a grey sky">
+          <span>UPSCALED 4K · EXTERIOR</span>
+        </div>
+        <div class="hero-caption">A quiet research station · 01 / 03</div>
+      </div>
+    </section>
+
+    <section class="section-line" id="collection" aria-labelledby="collection-title">
+      <div class="wrap gallery-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">One world, different views</div>
+            <h2 id="collection-title">Room for the screen.</h2>
+          </div>
+          <p>Each scene has its own framing, suited to its screen. The materials and light tie the collection together.</p>
+        </div>
+        <div class="wallpapers">
+          <figure class="wallpaper-card">
+            <img src="images/station-laptop.png" alt="Research station tower composed for a taller laptop wallpaper">
+            <figcaption class="card-caption"><h3>Monolithic entrance</h3><span>LAPTOP · 3:2</span></figcaption>
+          </figure>
+          <figure class="wallpaper-card">
+            <img src="images/station-exterior.png" alt="Wide view across the full research-station complex in a dark basalt landscape">
+            <figcaption class="card-caption"><h3>The long approach</h3><span>DISPLAY 01 · 16:9</span></figcaption>
+          </figure>
+          <figure class="wallpaper-card">
+            <img src="images/station-interior.png" alt="Interior research hall with a suspended mechanical assembly inside a vast graphite structure">
+            <figcaption class="card-caption"><h3>Inside the hall</h3><span>DISPLAY 02 · 16:9</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section" id="approach" aria-labelledby="approach-title">
+      <div class="wrap">
+        <div class="process-head">
+          <h2 id="approach-title">A first guess is just that.</h2>
+          <p>The first idea got the mood right but the scenery wrong. Feedback steered it toward a place built from graphite, monumental shapes and quiet amber light. That became the research station.</p>
+        </div>
+        <div class="steps" aria-label="Four steps in making a personal wallpaper set">
+          <article class="step"><span class="step-index">01 / HYPOTHESIS</span><h3>Look for clues</h3><p>Use remembered preferences as clues. Keep the read of someone's taste open to correction.</p></article>
+          <article class="step"><span class="step-index">02 / DIRECTION</span><h3>Let them steer</h3><p>Offer a concrete direction. Treat feedback as the design brief taking shape.</p></article>
+          <article class="step"><span class="step-index">03 / COMPOSITION</span><h3>Make a family</h3><p>Give each display a composition that suits its shape, with one world tying the set together.</p></article>
+          <article class="step"><span class="step-index">04 / ITERATION</span><h3>Apply, then listen</h3><p>Preserve the previous wallpaper and settings, apply to connected screens, and read back what Windows selected.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap tech-section" aria-labelledby="capabilities-title">
+      <div class="tech-head">
+        <div>
+          <div class="eyebrow">A skill you can try</div>
+          <h2 id="capabilities-title">Creative, with receipts.</h2>
+        </div>
+        <p>Images, display sizing and desktop changes have different evidence. The skill keeps those steps visible.</p>
+      </div>
+      <div class="capabilities">
+        <article class="capability"><span class="status">Working now</span><h3>Backups and read-back</h3><p>On Windows, the adapter saves the current image and appearance settings, applies to connected displays, and verifies the selected files.</p></article>
+        <article class="capability"><span class="status">Working now</span><h3>One set, many formats</h3><p>Keep the source dimensions recorded. Local resizing can fill a high-resolution screen, but it cannot invent native detail.</p></article>
+        <article class="capability"><span class="status future">Opt-in automation</span><h3>A desktop that keeps up</h3><p>Schedule fresh art, then let time, displays and city weather select from authorized images. Other agents can suggest a saved pack or a future creative brief.</p></article>
+      </div>
+      <p class="caveat"><span aria-hidden="true">↗</span><span>Fresh generation needs the local app and image tools. Signal selection uses saved images while you are logged on, with hourly city weather and a manual override. The agent handoff is local and data-only; Dot needs its own authorized access.</span></p>
+    </section>
+
+    <section class="try-section" aria-labelledby="try-title">
+      <div class="wrap try-row">
+        <div class="try-copy">
+          <div class="eyebrow">Take it for a spin</div>
+          <p id="try-title">Start with what you like. See where it goes.</p>
+        </div>
+        <div class="skill-call" aria-label="Example skill invocation"><span>$ambient-wallpapers</span> &nbsp;make it feel more like me</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap"><span>AMBIENT WALLPAPERS &nbsp;·&nbsp; LOCAL DEMO</span><span>ONE MORE TUNE IS ALWAYS ALLOWED.</span></footer>
+</body>
+</html>

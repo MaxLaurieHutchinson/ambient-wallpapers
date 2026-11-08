@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ambient Wallpapers"
+  short_description: "Personal wallpapers for your taste and displays"
+  default_prompt: "Use $ambient-wallpapers to learn my visual preferences and create a coordinated wallpaper set for my displays."

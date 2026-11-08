@@ -1,0 +1,141 @@
+{
+  "name": "ambient-wallpapers",
+  "version": "0.1.0",
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 250,
+      "sha256": "bc6c8548e967e4b5b0da5d7b3c02224a3cda7edd81baf1b15ee8db64a76b1098"
+    },
+    {
+      "path": "examples/images/station-exterior.png",
+      "bytes": 2205369,
+      "sha256": "f63c94867693be37527d2472c641c18127a1776232ca574678f0f51758163454"
+    },
+    {
+      "path": "examples/images/station-interior.png",
+      "bytes": 1921937,
+      "sha256": "78c2685b0a2f58275e000a2b73a41e06bd2bdb4615a9f7d1d53c79de68bbf65d"
+    },
+    {
+      "path": "examples/images/station-laptop.png",
+      "bytes": 1922120,
+      "sha256": "e9edc1e952b5d47198a8dfc89d2eb223971a55c147b6b0a06164d78adf7dfc71"
+    },
+    {
+      "path": "examples/profile.json",
+      "bytes": 515,
+      "sha256": "6ff0749d628896bf0c2f359a38210c751b38f572e7be5f5ffbc737aae8b53cc4"
+    },
+    {
+      "path": "references/automation.md",
+      "bytes": 3739,
+      "sha256": "2703a28886dcb8bd8a4e4b4b1e752313623e6dd7f6b6604547d1ede9e9360946"
+    },
+    {
+      "path": "references/context.md",
+      "bytes": 2720,
+      "sha256": "9f5e6bb823d6e2318e8b4fe2c1730d3626bf1797b2fd243219d5305677b7c31a"
+    },
+    {
+      "path": "references/preferences.md",
+      "bytes": 2607,
+      "sha256": "4da9bb6abbb9ab61bf0385419761c996d77cd390afe9c8c0728fc74af24fc79e"
+    },
+    {
+      "path": "references/profile.md",
+      "bytes": 3649,
+      "sha256": "d16be786d73fe767ee4891f41a91b60cd9c5d73e83458d0f6ef1f1156512c9be"
+    },
+    {
+      "path": "references/windows.md",
+      "bytes": 2151,
+      "sha256": "d5ef9f9d4d4296d2f48e418aa5e8e308db612763ba4449f3fbb3bbc99c0cc45d"
+    },
+    {
+      "path": "scripts/ambient.py",
+      "bytes": 26397,
+      "sha256": "ba11366cf5bdbf0c25813d9a6f4cf639d7ef959867607d178d8bf4d6543cd21a"
+    },
+    {
+      "path": "scripts/context_signals.py",
+      "bytes": 10732,
+      "sha256": "fbf9f8a12082bfd89faaac9ad54eaa88b74d7983885f5e4692b6a79d7f131066"
+    },
+    {
+      "path": "scripts/install_signal_task.ps1",
+      "bytes": 10344,
+      "sha256": "be9efbfc7078a9fa97635db0072cd6202a4bde0379c584b94a5a9e1f375b8509"
+    },
+    {
+      "path": "scripts/prepare_images.py",
+      "bytes": 5901,
+      "sha256": "3053ea3e97327321c472f6aa1ae37168efcb07b0096ab4cb4bd7e7831bf05d5f"
+    },
+    {
+      "path": "scripts/signals_job.py",
+      "bytes": 4582,
+      "sha256": "78f35d953f8332e7daba9fd642411e59bd7294609c758fbbf27dd24a6cf1d9ca"
+    },
+    {
+      "path": "scripts/weather_signal.py",
+      "bytes": 9579,
+      "sha256": "76e54d0e3955de194d9149fe98604ca03cc87f12552b5f64c659dbc1ec975e02"
+    },
+    {
+      "path": "scripts/windows_wallpaper.ps1",
+      "bytes": 22078,
+      "sha256": "b1fa63ec0b56f5bff68c500b50c8570c382cc3a0f3e4380be27dffaaf5fd025d"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 3628,
+      "sha256": "05a6a33bee896ee3f61e094e01b42a1f4ef4551a34552657d3e89a9ff4453752"
+    },
+    {
+      "path": "tests/test_ambient.py",
+      "bytes": 18043,
+      "sha256": "e4ed08c8514bccb9df443817fa3c47f44e6e179dd3da0a5d5a7542fbc76807cc"
+    },
+    {
+      "path": "tests/test_context_signals.py",
+      "bytes": 8690,
+      "sha256": "8b3e9a56a4c8c7e2bcfada936301753785beade319ad43ee0c7928f9a236a7c9"
+    },
+    {
+      "path": "tests/test_prepare_images.py",
+      "bytes": 4727,
+      "sha256": "6207fa92ed64e86d44711e39935af53d541a39b14101bf96fd86e03529756226"
+    },
+    {
+      "path": "tests/test_signal_task_plan.ps1",
+      "bytes": 3465,
+      "sha256": "903625188d39da3b26fb645ec6b2e91784f710447520a15a1556675fa6341d7d"
+    },
+    {
+      "path": "tests/test_signals_job.py",
+      "bytes": 3630,
+      "sha256": "09a3a29e35f5521fa272db71f13c5521883dc6659cb72fc956f98958e16592fb"
+    },
+    {
+      "path": "tests/test_weather_signal.py",
+      "bytes": 10010,
+      "sha256": "f587da50a1d1a0fb506569674f65790dd19dce8dff5b38815d91110d8fe216e0"
+    },
+    {
+      "path": "tests/test_windows_roles.ps1",
+      "bytes": 2050,
+      "sha256": "d3b366c4d0401fda0b5fd52f82ca70416f9a53303cc93c1bfd19fbfab06b5273"
+    }
+  ],
+  "archives": [
+    {
+      "path": "ambient-wallpapers-0.1.0.zip",
+      "sha256": "1675e1312c02eaf7607f696c5885386a37db1cce20c716ee3530a5873cb6e09d"
+    },
+    {
+      "path": "ambient-wallpapers-showcase-0.1.0.zip",
+      "sha256": "7054b1b40823ad003a7f6d9805f3e4fde547ca67d35bbbceccd2d9e5726b50d9"
+    }
+  ]
+}

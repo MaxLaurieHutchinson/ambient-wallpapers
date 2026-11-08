@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "enabled": false,
+  "allow_apply": false,
+  "asset_root": "images",
+  "fallback_pack": "station-demo",
+  "catalog": [
+    {
+      "id": "station-demo",
+      "approved": true,
+      "tags": ["day", "night", "mobile", "docked"],
+      "laptop": "station-laptop.png",
+      "monitors": ["station-exterior.png", "station-interior.png"]
+    }
+  ],
+  "signals": {"allowed": ["time_of_day", "display_count"], "day_start": 7, "night_start": 19, "min_interval_minutes": 30},
+  "manual_override": null
+}
