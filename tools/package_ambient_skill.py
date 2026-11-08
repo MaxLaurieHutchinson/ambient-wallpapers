@@ -19,6 +19,7 @@ PRIVATE_PATTERNS = {
     "credential": re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,})\b"),
 }
 TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py", ".ps1", ".html", ".swift"}
+NOTICE_NAMES = ("LICENSE", "ASSETS-LICENSE.md")
 
 
 def clean_files(folder: Path) -> list[Path]:
@@ -56,19 +57,34 @@ def add_files(archive: zipfile.ZipFile, folder: Path, prefix: str, files: list[P
         archive.writestr(info, path.read_bytes())
 
 
+def add_notices(archive: zipfile.ZipFile, prefix: str) -> None:
+    """Every distributed ZIP carries both legal notices, including its artwork terms."""
+    for name in NOTICE_NAMES:
+        path = ROOT / name
+        info = zipfile.ZipInfo(f"{prefix}/{name}", date_time=(2020, 1, 1, 0, 0, 0))
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o644 << 16
+        archive.writestr(info, path.read_bytes())
+
+
 def build(version: str) -> dict:
     if not re.fullmatch(r"\d+\.\d+\.\d+", version):
         raise ValueError("Version must be MAJOR.MINOR.PATCH")
     DIST.mkdir(exist_ok=True)
     skill_files = clean_files(SOURCE)
     showcase_files = clean_files(SHOWCASE)
-    check_public(skill_files + showcase_files)
+    notices = [ROOT / name for name in NOTICE_NAMES]
+    if not all(path.is_file() for path in notices):
+        raise ValueError("Both LICENSE and ASSETS-LICENSE.md must be present")
+    check_public(skill_files + showcase_files + notices)
     skill_zip = DIST / f"ambient-wallpapers-{version}.zip"
     showcase_zip = DIST / f"ambient-wallpapers-showcase-{version}.zip"
     with zipfile.ZipFile(skill_zip, "w") as archive:
         add_files(archive, SOURCE, "ambient-wallpapers", skill_files)
+        add_notices(archive, "ambient-wallpapers")
     with zipfile.ZipFile(showcase_zip, "w") as archive:
         add_files(archive, SHOWCASE, "ambient-wallpapers-showcase", showcase_files)
+        add_notices(archive, "ambient-wallpapers-showcase")
     records = [{
         "path": path.relative_to(SOURCE).as_posix(),
         "bytes": path.stat().st_size,
@@ -77,6 +93,9 @@ def build(version: str) -> dict:
     manifest = {
         "name": "ambient-wallpapers",
         "version": version,
+        "licenses": {"code": "MIT", "example_artwork": "CC-BY-4.0"},
+        "notices": [{"path": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+                    for path in notices],
         "files": records,
         "archives": [{
             "path": path.name,

@@ -27,4 +27,4 @@ Describe test evidence, expected failure behaviour, rollback implications and an
 
 ## Licensing
 
-The maintainer has not yet chosen and published a reusable code/artwork licence. External contributions and releases must wait until the licensing decision is made. Do not assume the public repository authorises redistribution.
+Code and documentation are under [MIT](LICENSE); the six bundled example images are separately offered under [CC BY 4.0](ASSETS-LICENSE.md), to the extent licensable. Contributions should identify their origin, dependencies, image rights and whether those terms are compatible. Do not commit artwork or datasets unless redistribution rights are established. A tagged release still requires a provenance review.

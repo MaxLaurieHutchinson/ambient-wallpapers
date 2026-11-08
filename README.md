@@ -6,7 +6,7 @@
 
 ![Research-station wallpaper from the Ambient Wallpapers showcase](showcase/images/station-exterior.png)
 
-> **Status:** public v0.1.0 release candidate. The skill, scripts and example assets exist; the tagged GitHub Release, selected licence and live multi-display installation verification are pending.
+> **Status:** public v0.1.0 release candidate. Code and example-artwork licences are selected; a tagged release, artwork-provenance review and real multi-display application verification are still pending.
 
 ## Features
 
@@ -103,4 +103,10 @@ A tagged release will provide a portable skill ZIP, a showcase ZIP and SHA-256 m
 
 [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md) · [Maintainer release checklist](docs/RELEASING.md)
 
-**Licensing pending:** public source visibility alone grants no reuse rights. The maintainer must choose a code licence and confirm separate artwork rights before publishing a tagged release.
+## Licence
+
+- **Code and documentation:** [MIT](LICENSE) © 2026 Max Hutchinson.
+- **Bundled example and showcase wallpapers:** [CC BY 4.0](ASSETS-LICENSE.md), limited to the six listed example-image paths and only to rights that can lawfully be granted.
+- **User-generated or user-supplied wallpaper packs:** not covered by the repository's artwork licence; their rights depend on their own provenance and terms.
+
+Both release ZIPs include the relevant notices. Before publication, the example images' generation source and redistribution rights still need a provenance review.

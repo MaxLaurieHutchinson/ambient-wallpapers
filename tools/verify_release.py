@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 SKILL = ROOT / "skills" / "ambient-wallpapers"
 SHOWCASE = ROOT / "showcase"
+NOTICE_NAMES = ("LICENSE", "ASSETS-LICENSE.md")
 
 
 def entries(root: Path) -> dict[str, Path]:
@@ -32,6 +33,7 @@ def sha256(data: bytes) -> str:
 def verify_zip(path: Path, source: dict[str, Path], prefix: str) -> None:
     with zipfile.ZipFile(path) as archive:
         expected = {f"{prefix}/{key}" for key in source}
+        expected.update(f"{prefix}/{name}" for name in NOTICE_NAMES)
         actual = archive.namelist()
         if len(actual) != len(set(actual)) or set(actual) != expected:
             raise ValueError(f"Archive content list does not match source: {path.name}")
@@ -41,6 +43,9 @@ def verify_zip(path: Path, source: dict[str, Path], prefix: str) -> None:
         for relative, file_path in source.items():
             if archive.read(f"{prefix}/{relative}") != file_path.read_bytes():
                 raise ValueError(f"Archive entry differs from source: {path.name}:{relative}")
+        for name in NOTICE_NAMES:
+            if archive.read(f"{prefix}/{name}") != (ROOT / name).read_bytes():
+                raise ValueError(f"Archive licence notice differs from source: {path.name}:{name}")
 
 
 def verify() -> dict:
@@ -48,6 +53,15 @@ def verify() -> dict:
     if manifest.get("name") != "ambient-wallpapers":
         raise ValueError("Wrong archive name")
     version = manifest["version"]
+    if manifest.get("licenses") != {"code": "MIT", "example_artwork": "CC-BY-4.0"}:
+        raise ValueError("Unsupported or missing licence metadata")
+    notices = manifest.get("notices")
+    if not isinstance(notices, list) or {item.get("path") for item in notices} != set(NOTICE_NAMES) or len(notices) != len(NOTICE_NAMES):
+        raise ValueError("Licence notice inventory is incomplete")
+    for notice in notices:
+        path = ROOT / notice["path"]
+        if not path.is_file() or sha256(path.read_bytes()) != notice["sha256"]:
+            raise ValueError(f"Licence notice differs from manifest: {notice['path']}")
     skill = entries(SKILL)
     showcase = entries(SHOWCASE)
     files = manifest["files"]

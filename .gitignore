@@ -17,6 +17,7 @@
 # Root documentation outside the allowlist.
 !/LICENSE
 !/LICENSE.md
+!/ASSETS-LICENSE.md
 !/CONTRIBUTING.md
 !/SECURITY.md
 !/docs/
