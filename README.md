@@ -39,7 +39,7 @@ It's a small design experiment: *can a wallpaper skill learn enough about your t
 
 ## Get started
 
-<text>**What you need:** [Codex](https://openai.com/codex/) with an image-generation tool, Python 3.10+, and [Pillow](https://pypi.org/project/Pillow/) for local preparation. Windows application uses PowerShell; macOS static wallpaper application uses Swift from Xcode Command Line Tools.</text>
+**What you need:** [Codex](https://openai.com/codex/) with an image-generation tool, Python 3.10+, and [Pillow](https://pypi.org/project/Pillow/) for local preparation. Windows application uses PowerShell; macOS static wallpaper application uses Swift from Xcode Command Line Tools.
 
 ### Install the skill
 

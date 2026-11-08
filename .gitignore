@@ -11,6 +11,7 @@
 
 /tools/*
 !/tools/package_ambient_skill.py
+!/tools/render_social_preview.py
 
 /dist/*
 
