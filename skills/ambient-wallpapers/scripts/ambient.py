@@ -519,7 +519,7 @@ def main(argv: list[str] | None = None) -> int:
             _emit(build_plan(profile, hour=args.hour, display_count=args.display_count,
                              state=state, context=context))
             return 0
-        if os.name != "nt":
+        if sys.platform != "win32":
             raise ProfileError("Apply is supported on Windows only; plan works on other systems.")
         result = apply_profile(profile, state_path=state_path)
         _emit(result)
