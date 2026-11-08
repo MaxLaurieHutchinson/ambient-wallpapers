@@ -26,6 +26,14 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify distributables and showcase
+        run: |
+          python tools/package_ambient_skill.py
+          python tools/verify_release.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload only the public showcase
