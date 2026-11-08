@@ -35,7 +35,7 @@ jobs:
           python tools/package_ambient_skill.py
           python tools/verify_release.py
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload only the public showcase
         uses: actions/upload-pages-artifact@v3
         with:
