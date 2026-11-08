@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="450" viewBox="0 0 1600 450" role="img" aria-labelledby="title desc">
+  <title id="title">Ambient Wallpapers</title>
+  <desc id="desc">A graphite-and-amber wordmark reading Ambient Wallpapers, made to feel like yours, with a trio of abstract display outlines.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10110f"/><stop offset="1" stop-color="#1d1a15"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#ad7144" stop-opacity=".38"/><stop offset="1" stop-color="#ad7144" stop-opacity="0"/></radialGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b3328"/><stop offset=".6" stop-color="#211f1b"/><stop offset="1" stop-color="#111210"/></linearGradient>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46 0H0V46" fill="none" stroke="#fff4df" stroke-opacity=".035" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1600" height="450" fill="url(#background)"/>
+  <rect x="690" width="910" height="450" fill="url(#grid)"/>
+  <ellipse cx="1270" cy="245" rx="485" ry="360" fill="url(#glow)"/>
+  <path d="M0 449H1600" stroke="#73553c" stroke-opacity=".45"/>
+  <g transform="translate(89 60)">
+    <circle cx="24" cy="24" r="23" fill="none" stroke="#e3a966" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="5" fill="#e3a966"/><circle cx="37" cy="37" r="3" fill="#e3a966" fill-opacity=".65"/>
+    <text x="69" y="30" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" letter-spacing="4" fill="#d7cdc0">AN AI WALLPAPER SKILL FOR CODEX</text>
+  </g>
+  <text x="90" y="224" font-family="Georgia,Palatino,serif" font-size="105" letter-spacing="-5" fill="#f3f0e8">Ambient</text>
+  <text x="90" y="324" font-family="Georgia,Palatino,serif" font-size="105" letter-spacing="-5" fill="#e3a966">Wallpapers</text>
+  <path d="M90 359H380" stroke="#94683f" stroke-width="2"/>
+  <text x="90" y="394" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" letter-spacing="2" fill="#b9b7ae">MADE TO FEEL LIKE YOURS.</text>
+  <g stroke="#d9c5a9" stroke-opacity=".6" fill="#161715" stroke-width="2">
+    <rect x="1044" y="94" width="392" height="237" rx="6"/>
+    <rect x="1192" y="239" width="311" height="185" rx="6"/>
+    <rect x="900" y="209" width="283" height="180" rx="7"/>
+  </g>
+  <g fill="url(#screen)" stroke="#aa8056" stroke-opacity=".45">
+    <rect x="1054" y="105" width="372" height="202"/>
+    <rect x="1202" y="249" width="291" height="156"/>
+    <rect x="908" y="218" width="267" height="149"/>
+  </g>
+  <g fill="none" stroke="#e3a966" stroke-width="1" stroke-opacity=".24">
+    <path d="M1090 282L1189 136L1300 282M1144 282L1200 196L1258 282"/>
+    <path d="M1221 385L1291 288L1388 385"/>
+    <path d="M942 348L1011 240L1093 348"/>
+  </g>
+  <g fill="#e3a966" fill-opacity=".8"><rect x="1174" y="207" width="34" height="4"/><rect x="1286" y="332" width="34" height="4"/><rect x="1006" y="296" width="25" height="4"/></g>
+  <path d="M886 396H1197L1215 409H880Z" fill="#69645d" stroke="#d9c5a9" stroke-opacity=".25"/>
+  <g font-family="DejaVu Sans,Arial,sans-serif" font-size="12" letter-spacing="2" fill="#b4a391"><text x="1071" y="325">01  /  EXTERIOR</text><text x="1230" y="421">02  /  INTERIOR</text><text x="927" y="382">LAPTOP</text></g>
+</svg>
