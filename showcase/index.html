@@ -4,7 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111210">
-  <meta name="description" content="Ambient Wallpapers turns your preferences into a coordinated desktop wallpaper set. Explore the research-station showcase.">
+  <meta name="description" content="Ambient Wallpapers creates personal, coordinated desktop wallpapers. Explore the collection and install the Codex skill.">
+  <link rel="canonical" href="https://maxlauriehutchinson.github.io/ambient-wallpapers/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ambient Wallpapers — make your desktop yours">
+  <meta property="og:description" content="Personalised, coordinated wallpapers for your screens. See the art and install the Codex skill.">
+  <meta property="og:url" content="https://maxlauriehutchinson.github.io/ambient-wallpapers/">
+  <meta property="og:image" content="https://maxlauriehutchinson.github.io/ambient-wallpapers/images/station-exterior.png">
+  <meta name="twitter:card" content="summary_large_image">
   <title>Ambient Wallpapers: make your desktop yours</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111210'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23e3a966'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23e3a966'/%3E%3C/svg%3E">
   <style>
@@ -117,6 +124,9 @@
     .try-copy p { margin: 0; color: #c1c1b9; font-family: var(--serif); font-size: clamp(21px, 2.5vw, 30px); letter-spacing: -.025em; }
     .skill-call { flex: none; padding: 13px 16px; border: 1px solid rgba(227,169,102,.5); color: #f1e5d5; background: rgba(19,19,17,.5); font: 11px var(--mono); }
     .skill-call span { color: var(--amber); }
+    .install-link { font-size: 13px; font-weight: 600; color: #f0c08f; text-underline-offset: 4px; }
+    .install-link:hover, .install-link:focus-visible { color: #fff3df; }
+    footer a { color: #b7b8b1; text-underline-offset: 3px; }
     footer { display: flex; justify-content: space-between; gap: 18px; padding-block: 21px 24px; color: #696b64; font: 9px var(--mono); letter-spacing: .02em; }
 
     @media (min-width: 1540px) { .hero { min-height: 750px; } .hero-art { min-height: 530px; } }
@@ -142,7 +152,7 @@
       .topbar { min-height: 68px; }
       .nav { gap: 16px; }
       .nav a:first-child { display: none; }
-      .local-pill { font-size: 9px; padding: 7px 9px; }
+      .local-pill { display: none; }
       .hero { padding-top: 58px; gap: 27px; }
       h1 { margin-top: 19px; font-size: clamp(48px, 14vw, 70px); }
       .intro { font-size: 14px; line-height: 1.75; }
@@ -172,7 +182,7 @@
       .capability:last-child { grid-column: auto; }
       .try-row { align-items: start; flex-direction: column; }
       .try-section { padding-block: 42px; }
-      footer { font-size: 8px; }
+      footer { font-size: 11px; flex-wrap: wrap; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
@@ -188,6 +198,8 @@
     <nav class="nav" aria-label="Main navigation">
       <a href="#collection">The collection</a>
       <a href="#approach">How it works</a>
+      <a href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers#install-in-codex">Install</a>
+      <a href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers">GitHub</a>
       <span class="local-pill">A skill for Codex</span>
     </nav>
   </header>
@@ -199,8 +211,9 @@
         <h1 id="hero-title">Made to feel like <em>yours.</em></h1>
         <p class="intro">A wallpaper should feel at home on your screen. Ambient Wallpapers starts with a hunch about your taste, then lets you steer.</p>
         <div class="hero-actions">
-          <a class="button" href="#collection">See the collection <span class="arrow" aria-hidden="true">↘</span></a>
-          <a class="quiet-link" href="#approach">How it found its way here</a>
+          <a class="button" href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers#install-in-codex">Get the Codex skill <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="quiet-link" href="#collection">See the collection</a>
+          <a class="quiet-link" href="#approach">How it works</a>
         </div>
         <div class="hero-note">ONE IDEA &nbsp;·&nbsp; THREE SCREENS &nbsp;·&nbsp; YOUR CALL</div>
       </div>
@@ -214,7 +227,7 @@
         </div>
         <div class="monitor-inset">
           <img src="images/station-exterior.png" alt="A wide remote station with a tall tower and warm band of light under a grey sky">
-          <span>UPSCALED 4K · EXTERIOR</span>
+          <span>DISPLAY 01 · EXTERIOR</span>
         </div>
         <div class="hero-caption">A quiet research station · 01 / 03</div>
       </div>
@@ -284,10 +297,11 @@
           <p id="try-title">Start with what you like. See where it goes.</p>
         </div>
         <div class="skill-call" aria-label="Example skill invocation"><span>$ambient-wallpapers</span> &nbsp;make it feel more like me</div>
+      <a class="install-link" href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers#install-in-codex">Installation guide ↗</a>
       </div>
     </section>
   </main>
 
-  <footer class="wrap"><span>AMBIENT WALLPAPERS &nbsp;·&nbsp; THE SHOWCASE</span><span>ONE MORE TUNE IS ALWAYS ALLOWED.</span></footer>
+  <footer class="wrap"><span>AMBIENT WALLPAPERS &nbsp;·&nbsp; THE SHOWCASE</span><span><a href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers/blob/main/ASSETS-LICENSE.md">EXAMPLE ART · CC BY 4.0</a> &nbsp;·&nbsp; <a href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers">SOURCE ON GITHUB ↗</a></span></footer>
 </body>
 </html>

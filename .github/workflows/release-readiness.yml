@@ -1,0 +1,80 @@
+name: Release readiness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python tests (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Pillow
+        run: python -m pip install Pillow
+      - name: Compile Python
+        run: python -m compileall -q skills/ambient-wallpapers/scripts tools
+      - name: Unit tests
+        run: python -m unittest discover -s skills/ambient-wallpapers/tests -v
+
+  windows-contracts:
+    name: Windows contracts (read-only)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test display roles and task planning without desktop changes
+        shell: pwsh
+        run: |
+          ./skills/ambient-wallpapers/tests/test_windows_roles.ps1
+          ./skills/ambient-wallpapers/tests/test_signal_task_plan.ps1
+
+  macos-adapter:
+    name: macOS Swift adapter compiles
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Typecheck AppKit and CoreGraphics adapter
+        run: swiftc -typecheck skills/ambient-wallpapers/scripts/macos_wallpaper.swift
+
+  release-assets:
+    name: Verify reproducible release assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build and verify
+        run: |
+          python tools/package_ambient_skill.py
+          python tools/verify_release.py
+      - name: Confirm deterministic ZIP bytes
+        run: |
+          cp dist/ambient-wallpapers-0.1.0.zip /tmp/skill-first.zip
+          cp dist/ambient-wallpapers-showcase-0.1.0.zip /tmp/showcase-first.zip
+          python tools/package_ambient_skill.py
+          cmp dist/ambient-wallpapers-0.1.0.zip /tmp/skill-first.zip
+          cmp dist/ambient-wallpapers-showcase-0.1.0.zip /tmp/showcase-first.zip
+
+  secrets:
+    name: Full-history secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

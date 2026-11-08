@@ -278,7 +278,7 @@ class ApplyTests(unittest.TestCase):
         profile_path = self.root / "profile.json"
         profile_path.write_text(json.dumps(self.profile), encoding="utf-8")
         output = io.StringIO()
-        with patch.object(ambient.os, "name", "nt"), \
+        with patch.object(ambient.sys, "platform", "win32"), \
                 patch.object(ambient, "apply_profile", return_value={"status": "APPLY_FAILED"}), \
                 contextlib.redirect_stdout(output):
             exit_code = ambient.main(["apply", "--profile", str(profile_path)])

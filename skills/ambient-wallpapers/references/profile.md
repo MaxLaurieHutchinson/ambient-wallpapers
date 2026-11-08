@@ -31,6 +31,8 @@ The runtime handles approved cached images, not image generation or memory searc
 }
 ```
 
+On macOS the bundled `macos_wallpaper.swift` uses native AppKit for static-image application with a preflight plan token; see [macos.md](macos.md). Windows and Mac restore receipts are separate and platform-specific. macOS recurring scheduling is not yet bundled.
+
 `enabled` controls selection; `allow_apply` separately authorizes the local apply runner. Do not enable either as a side effect of creating a profile. A missing image, malformed profile, unapproved pack or unsafe path must not produce a wallpaper mutation.
 
 Only packs matching enabled signal categories should be selected; an approved fallback covers a missing combination. A single approved pack can carry all tags, but it will not create a visible day/night difference. Different visual variants require their own approval and files.

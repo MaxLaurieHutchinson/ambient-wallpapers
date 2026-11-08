@@ -385,8 +385,7 @@ def _call_windows(script: Path, mode: str, *, assignment: Mapping[str, Any] | No
         return _decode_adapter(completed.stdout, mode)
 
 
-def inspect_connected_displays(script: Path) -> list[str]:
-    result = _call_windows(script, "Inspect")
+def _connected_identifiers(result: Mapping[str, Any]) -> list[str]:
     monitors = result.get("Monitors")
     if not isinstance(monitors, list):
         raise ProfileError("Inspect did not return a monitor list.")
@@ -400,8 +399,65 @@ def inspect_connected_displays(script: Path) -> list[str]:
     return sorted(identifiers)
 
 
+def inspect_connected_displays(script: Path) -> list[str]:
+    return _connected_identifiers(_call_windows(script, "Inspect"))
+
+
 def inspect_display_count(script: Path) -> int:
     return len(inspect_connected_displays(script))
+
+
+def _call_macos(script: Path, mode: str, *, assignment: Mapping[str, Any] | None = None,
+                backup_root: Path | None = None, plan_id: str | None = None,
+                state_path: Path | None = None) -> Mapping[str, Any]:
+    """Invoke the native AppKit adapter, using argument arrays, never a shell."""
+    if not script.is_file():
+        raise ProfileError(f"macOS wallpaper adapter is missing: {script}")
+    swift = shutil.which("swift")
+    if not swift:
+        raise ProfileError("macOS wallpaper application requires the Swift toolchain (Xcode Command Line Tools).")
+    with tempfile.TemporaryDirectory(prefix="ambient-wallpapers-") as temp_dir:
+        command = [swift, str(script), "--mode", mode]
+        if assignment is not None:
+            assignment_path = Path(temp_dir) / "assignment.json"
+            assignment_path.write_text(json.dumps(assignment), encoding="utf-8")
+            command.extend(["--assignment-path", str(assignment_path)])
+        if backup_root is not None:
+            command.extend(["--backup-root", str(backup_root.expanduser().resolve())])
+        if plan_id is not None:
+            command.extend(["--plan-id", plan_id])
+        if state_path is not None:
+            command.extend(["--state-path", str(state_path.expanduser().resolve())])
+        try:
+            completed = subprocess.run(command, shell=False, capture_output=True, text=True,
+                                       encoding="utf-8", timeout=120)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            raise ProfileError(f"macOS wallpaper helper could not finish {mode}: {exc}") from exc
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or completed.stdout.strip() or f"exit code {completed.returncode}"
+            raise ProfileError(f"macOS wallpaper helper failed during {mode}: {message}")
+        return _decode_adapter(completed.stdout, mode)
+
+
+def macos_apply(script: Path, assignment: Mapping[str, Any], backup_root: Path) -> Mapping[str, Any]:
+    planned = _call_macos(script, "Plan", assignment=assignment)
+    if planned.get("Result") != "Planned":
+        return {"verified": False, "result": "macOS Plan did not return read-only assignments", "detail": planned}
+    plan_id = planned.get("PlanID")
+    expected = _assignment_signature(planned.get("Assignment"))
+    if not isinstance(plan_id, str) or len(plan_id) != 64 or expected is None:
+        return {"verified": False, "result": "macOS Plan is missing a valid token or assignments", "detail": planned}
+    result = _call_macos(script, "Apply", assignment=assignment, backup_root=backup_root,
+                         plan_id=plan_id)
+    if result.get("Result") != "Applied":
+        return {"verified": False, "result": result.get("Result", "Unknown"),
+                "detail": {"plan": planned, "apply": result}}
+    actual = _assignment_signature(result.get("Assignment"))
+    if actual != expected:
+        return {"verified": False, "result": "macOS Apply assignments differed from the plan",
+                "detail": {"plan": planned, "apply": result}}
+    return {"verified": True, "result": "Applied", "detail": {"plan": planned, "apply": result}}
+
 
 
 def windows_apply(script: Path, assignment: Mapping[str, Any], backup_root: Path) -> Mapping[str, Any]:
@@ -449,13 +505,17 @@ def apply_profile(profile: Mapping[str, Any], *, state_path: str | Path,
         raise ProfileError("Apply is disabled until the profile is enabled.")
     if validated.raw.get("allow_apply") is not True:
         raise ProfileError("Apply requires explicit allow_apply: true in the profile.")
-    script = Path(__file__).with_name("windows_wallpaper.ps1")
+    windows_script = Path(__file__).with_name("windows_wallpaper.ps1")
+    macos_script = Path(__file__).with_name("macos_wallpaper.swift")
     try:
         connected_ids: list[str] | None = None
         if adapter is None:
-            if os.name != "nt":
-                raise ProfileError("Wallpaper apply is currently supported on Windows only.")
-            connected_ids = inspect_connected_displays(script)
+            if sys.platform == "win32":
+                connected_ids = inspect_connected_displays(windows_script)
+            elif sys.platform == "darwin":
+                connected_ids = _connected_identifiers(_call_macos(macos_script, "Inspect"))
+            else:
+                raise ProfileError("Wallpaper apply supports Windows and macOS only.")
             connected_count = len(connected_ids)
         else:
             connected_count = 1 if display_count is None else display_count
@@ -466,8 +526,12 @@ def apply_profile(profile: Mapping[str, Any], *, state_path: str | Path,
                           display_ids=connected_ids)
         if plan["status"] != "READY":
             return {**plan, "status": plan["status"]}
-        outcome = adapter(plan["assignments"]) if adapter is not None else windows_apply(
-            script, plan["assignments"], validated.root.parent / "backup")
+        if adapter is not None:
+            outcome = adapter(plan["assignments"])
+        elif sys.platform == "win32":
+            outcome = windows_apply(windows_script, plan["assignments"], validated.root.parent / "backup")
+        else:
+            outcome = macos_apply(macos_script, plan["assignments"], validated.root.parent / "backup")
         if not isinstance(outcome, Mapping) or outcome.get("verified") is not True:
             return {**plan, "status": "APPLY_FAILED",
                     "detail": dict(outcome) if isinstance(outcome, Mapping) else "No verified adapter result."}
@@ -519,8 +583,8 @@ def main(argv: list[str] | None = None) -> int:
             _emit(build_plan(profile, hour=args.hour, display_count=args.display_count,
                              state=state, context=context))
             return 0
-        if os.name != "nt":
-            raise ProfileError("Apply is supported on Windows only; plan works on other systems.")
+        if sys.platform not in {"win32", "darwin"}:
+            raise ProfileError("Apply is supported on Windows and macOS only; plan works on other systems.")
         result = apply_profile(profile, state_path=state_path)
         _emit(result)
         return 1 if result.get("status") == "APPLY_FAILED" else 0

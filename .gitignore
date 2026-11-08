@@ -13,9 +13,11 @@
 !/tools/package_ambient_skill.py
 
 /dist/*
-!/dist/ambient-wallpapers-0.1.0.zip
-!/dist/ambient-wallpapers-showcase-0.1.0.zip
-!/dist/ambient-wallpapers-manifest.json
 
-**/__pycache__/
-**/*.py[cod]
+# Root documentation outside the allowlist.
+!/LICENSE
+!/LICENSE.md
+!/ASSETS-LICENSE.md
+!/CONTRIBUTING.md
+!/SECURITY.md
+!/docs/
