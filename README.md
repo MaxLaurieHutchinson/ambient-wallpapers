@@ -1,40 +1,60 @@
-# Ambient Wallpapers
+<p align="center">
+  <img src="docs/assets/ambient-banner.svg" width="100%" alt="Ambient Wallpapers — an AI wallpaper skill for Codex. Made to feel like yours.">
+</p>
 
-**A Codex skill for a desktop that feels like yours.** Find a visual direction, generate a coordinated wallpaper collection for your displays, and refine it from feedback.
+<p align="center">
+  <strong>AI-generated wallpapers shaped by your taste, composed as one visual world across your displays.</strong>
+</p>
+<p align="center">
+  <a href="https://maxlauriehutchinson.github.io/ambient-wallpapers/">Explore the showcase</a> &nbsp;·&nbsp;
+  <a href="#get-started">Get the skill</a> &nbsp;·&nbsp;
+  <a href="#the-creative-process">See the process</a> &nbsp;·&nbsp;
+  <a href="https://github.com/MaxLaurieHutchinson/ambient-wallpapers/actions/workflows/release-readiness.yml">Build status</a>
+</p>
 
-[Live showcase](https://maxlauriehutchinson.github.io/ambient-wallpapers/) · [Install in Codex](#install-in-codex) · [How it works](#how-it-works) · [GitHub Releases](https://github.com/MaxLaurieHutchinson/ambient-wallpapers/releases)
+<p align="center">
+  <img src="showcase/images/station-laptop.png" width="30%" alt="Research-station tower, framed as a taller laptop wallpaper">
+  <img src="showcase/images/station-exterior.png" width="34%" alt="Research-station exterior, a widescreen desktop wallpaper">
+  <img src="showcase/images/station-interior.png" width="34%" alt="Research-station interior, a companion widescreen wallpaper">
+</p>
+<p align="center"><sub>THE RESEARCH STATION · ONE ATMOSPHERE · THREE COMPOSITIONS</sub></p>
 
-![Research-station wallpaper from the Ambient Wallpapers showcase](showcase/images/station-exterior.png)
+## Make your desktop feel like yours
 
-> **Status:** public v0.1.0 release candidate. The code and example-artwork licences are selected, and the maintainer has confirmed that the bundled artwork was generated with Codex for this project. The first tagged release and real multi-display application verification are still pending.
+A great wallpaper can be more personal than a stock image. **Ambient Wallpapers** is an experimental [Codex skill](skills/ambient-wallpapers/SKILL.md) that starts with an idea of your taste, listens when you disagree, and helps create a coordinated set of wallpapers for the screens you actually use.
 
-## Features
+The images above are a real example from the project, not a generic image search. Each screen gets its own composition while colour, light and atmosphere connect the whole set.
 
-- **Preference calibration:** learn from feedback; distinguish confirmed taste from suggestions and rejected directions.
-- **Coordinated imagery:** compose a consistent collection for a laptop and multiple displays, with honest source and output dimensions.
-- **Windows and macOS static wallpapers:** inspect, plan, apply and verify with a rollback receipt. macOS dynamic wallpapers and multi-Space state require extra care.
-- **Optional local signals:** choose among *approved cached images* using time, connected displays, opted-in city weather or data-only agent suggestions.
-- **Portable output:** generate/export on supported machines; native static wallpaper application is available on Windows and macOS, while Linux remains export-only.
+**[See the full-screen gallery and product showcase →](https://maxlauriehutchinson.github.io/ambient-wallpapers/)**
 
-[See the three-screen research-station collection](https://maxlauriehutchinson.github.io/ambient-wallpapers/). The website is a static showcase, not a remotely controlled desktop.
+## The creative process
 
-## Install in Codex
+The research-station collection started with an imperfect guess. The initial mood felt promising; the scenery did not. Feedback pushed it towards architectural forms, graphite surfaces and quiet amber lighting. That direction became a consistent world explored from three viewpoints.
 
-**Requirements:** Codex with an image-generation tool; Python 3.10+ for the bundled helpers; [Pillow](https://pypi.org/project/Pillow/) for preparing images. Windows PowerShell is required for Windows desktop changes; macOS application requires Swift from Xcode Command Line Tools.
+| 01 · Find a direction | 02 · Refine from feedback | 03 · Compose for every screen |
+| :-- | :-- | :-- |
+| Use preferences as clues, not assumptions. | Keep what fits; change what misses. | Generate related scenes with framing suited to each display. |
 
-### Codex skill installer
+It's a small design experiment: *can a wallpaper skill learn enough about your taste to make something that feels distinctly yours?*
 
-Ask your installed `$skill-installer` to install this repository directory:
+## Get started
+
+**What you need:** [Codex](https://openai.com/codex/) with an image-generation tool, Python 3.10+, and [Pillow](https://pypi.org/project/Pillow/) for local preparation. Windows application uses PowerShell; macOS static wallpaper application uses Swift from Xcode Command Line Tools.
+
+### Install the skill
+
+Ask the Codex `$skill-installer` to install the skill directory:
 
 ```text
 https://github.com/MaxLaurieHutchinson/ambient-wallpapers/tree/main/skills/ambient-wallpapers
 ```
 
-If the installer isn't present or your Codex build uses a different skill location, install manually.
+If your Codex setup does not include the installer, use a manual installation.
 
-### Manual installation
+<details>
+<summary><strong>Manual installation (Windows, macOS and Linux)</strong></summary>
 
-Copy **the whole** `skills/ambient-wallpapers` folder, including scripts, examples and references, into your Codex user-skills folder.
+Copy the complete `skills/ambient-wallpapers` folder, including its scripts, references and examples, into your Codex user-skills directory.
 
 **macOS / Linux**
 
@@ -52,29 +72,38 @@ New-Item -ItemType Directory -Force "$HOME/.agents/skills" | Out-Null
 Copy-Item -Recurse -Force "ambient-wallpapers/skills/ambient-wallpapers" "$HOME/.agents/skills/"
 ```
 
-The documented Codex user skill directory is `~/.agents/skills/`. Older Codex installers may use `~/.codex/skills/`; check your active skill list if it doesn't appear. Replace any previous installation deliberately rather than copying a second folder inside it.
+Codex normally uses `~/.agents/skills/`; older installations may use `~/.codex/skills/`. Restart your Codex session and check its available skills after copying. Replace an existing installation deliberately rather than nesting the folder twice.
 
-Start a new Codex session and enter:
+</details>
+
+### Ask for your first set
+
+Start a new Codex session:
 
 ```text
 $ambient-wallpapers make my desktop feel more like me
 ```
 
-**Safe default:** the example profile ships with `enabled: false` and `allow_apply: false`. Generation/export is separate from applying a wallpaper or scheduling any task.
+The skill proposes a direction, asks for your feedback, prepares artwork for your displays and offers a plan before making any desktop changes. You stay in control of what gets applied.
 
-## How it works
+**By default, application and recurring tasks are disabled.** Generating or exporting artwork does not authorise modifying a desktop.
 
-1. **Calibrate:** propose a visual direction based on confirmed preferences and user feedback, not assumptions about interests.
-2. **Generate:** produce a coherent set with a separate composition for each display.
-3. **Prepare:** inspect true dimensions; opt in before upscaling; save original sources, outputs and a dimension manifest.
-4. **Plan and apply:** on Windows or macOS, inspect displays, back up static-image settings, plan assignments, apply, verify, and keep rollback data. Read the [Mac adapter guide](skills/ambient-wallpapers/references/macos.md) for known macOS limitations.
-5. **Adapt (optional):** select from approved local packs using permitted time, display, city weather and agent categories. Manual choice takes precedence.
+## What it can do
 
-Agent inputs are **data only** and do not grant filesystem permissions or execute commands. Weather uses a city supplied by the user, not GPS. Scheduled generation requires the image tool and the local desktop runtime to be available when it runs.
+- **Personalised direction:** distinguish confirmed tastes, tentative ideas and rejected approaches.
+- **Coordinated multi-display art:** make a family of images, not the same image stretched across different screens.
+- **Safe desktop application:** inspect, plan, back up, apply and restore static wallpapers on supported Windows and macOS setups.
+- **Optional ambient behaviour:** select from approved local packs by time, connected displays or opted-in city weather. Scheduling and agent suggestions require explicit configuration.
+- **Honest image quality:** retain source dimensions; resizing or upscaling is not presented as native generated detail.
 
-Read the [skill instructions](skills/ambient-wallpapers/SKILL.md) and [implementation references](skills/ambient-wallpapers/references/) for behavioural contracts and supported adapters.
+Linux currently supports generation/export, not wallpaper application. The native macOS adapter passes automated Swift compilation and contract checks, but has not yet completed physical multi-display acceptance testing; dynamic wallpapers and multi-Space restoration are not guaranteed. Read the [macOS guide](skills/ambient-wallpapers/references/macos.md) and [Windows guide](skills/ambient-wallpapers/references/windows.md) before applying wallpapers.
 
-## Verify locally
+<details>
+<summary><strong>Engineering details, local verification and release status</strong></summary>
+
+The skill separates creativity from operating-system mutations. Agents provide **data only**, not permissions; weather uses a city you explicitly choose; schedules require a logged-in local runtime and an available image tool.
+
+Local verification:
 
 ```bash
 python -m pip install Pillow
@@ -83,30 +112,23 @@ python tools/package_ambient_skill.py --version 0.1.0
 python tools/verify_release.py
 ```
 
-For Windows-specific **non-mutating** PowerShell contract tests:
+Windows-only non-mutating contracts:
 
 ```powershell
 pwsh -NoProfile -File skills/ambient-wallpapers/tests/test_windows_roles.ps1
 pwsh -NoProfile -File skills/ambient-wallpapers/tests/test_signal_task_plan.ps1
 ```
 
-CI checks Python tests, Windows contracts, macOS Swift typechecking, reproducible packages and full-history credential scanning. Automated tests don't replace a manual visual and rollback check on a real Windows machine.
+CI checks Python tests, Windows contracts, Swift typechecking, deterministic archives and full-history credential scanning. Live wallpaper application and rollback need a separate manual test. The repository is a **v0.1.0 release candidate**; no tagged release has been published yet. Generated ZIPs and a SHA-256 manifest will appear under [GitHub Releases](https://github.com/MaxLaurieHutchinson/ambient-wallpapers/releases) after acceptance.
 
-## Distribution and boundaries
+Read the [skill instructions](skills/ambient-wallpapers/SKILL.md), [security policy](SECURITY.md) and [maintainer release checklist](docs/RELEASING.md).
 
-A tagged release will provide a portable skill ZIP, a showcase ZIP and SHA-256 manifest under [GitHub Releases](https://github.com/MaxLaurieHutchinson/ambient-wallpapers/releases). Generated archives are no longer committed to the source branch.
+</details>
 
-- **Upscaling doesn't create native image detail.** Output resolution is not generation resolution.
-- **Desktop application is Windows and macOS for static wallpapers.** Windows Spotlight rotation and macOS dynamic wallpapers or Space-specific settings cannot be guaranteed to restore automatically. macOS recurring task registration is not yet implemented.
-- **Weather, agent suggestions and schedules are opt-in.** A cloud task without desktop access cannot change local wallpaper.
-- **No private profiles or display identifiers** should appear in the repository or shareable bundles.
+---
 
-[Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md) · [Maintainer release checklist](docs/RELEASING.md)
+**Made as a creative experiment, shared as a reusable skill.**
 
-## Licence
+[Explore the showcase](https://maxlauriehutchinson.github.io/ambient-wallpapers/) · [Contribute](CONTRIBUTING.md) · [MIT source licence](LICENSE) · [CC BY 4.0 example-artwork terms](ASSETS-LICENSE.md)
 
-- **Code and documentation:** [MIT](LICENSE) © 2026 Max Hutchinson.
-- **Bundled example and showcase wallpapers:** [CC BY 4.0](ASSETS-LICENSE.md), limited to the six listed example-image paths and only to rights that can lawfully be granted.
-- **User-generated or user-supplied wallpaper packs:** not covered by the repository's artwork licence; their rights depend on their own provenance and terms.
-
-Both release ZIPs include the relevant notices. The maintainer has confirmed that the three example compositions originated from Codex generation for this project. Third-party images or references, if introduced in the future, still require a separate rights check.
+<sub>Example artwork was generated using Codex for this project. The artwork terms apply only to the six listed example and showcase image paths; wallpapers you create or supply have their own provenance and rights.</sub>

@@ -68,6 +68,23 @@ jobs:
           cmp dist/ambient-wallpapers-0.1.0.zip /tmp/skill-first.zip
           cmp dist/ambient-wallpapers-showcase-0.1.0.zip /tmp/showcase-first.zip
 
+  social-preview:
+    name: Render social preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Render using original artwork
+        run: |
+          python -m pip install Pillow
+          python tools/render_social_preview.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ambient-wallpapers-social-preview
+          path: dist/ambient-wallpapers-social-preview.jpg
+
   secrets:
     name: Full-history secret scan
     runs-on: ubuntu-latest
